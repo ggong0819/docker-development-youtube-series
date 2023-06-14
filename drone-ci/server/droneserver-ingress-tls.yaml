@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: drone
+spec:
+  tls:
+    - secretName: ingress-secret
+  ingressClassName: nginx
+  rules:
+    - host: drone.agit.us
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: droneserver
+                port:
+                  number: 80
